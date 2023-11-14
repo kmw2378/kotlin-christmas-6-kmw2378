@@ -21,6 +21,7 @@
   - [x] 음료만 입력시 예외 발생 - `OrdersValidator.validateMenuType()`
 - [x] 주문 도메인에 적용되는 혜택 도메인을 생성한다. - `BenefitsGenerator.generate()`
   - [x] 특정 혜택들의 적용 여부를 확인하기 위해 방문 날짜의 요일을 얻는다. - `LocalDateToWeekConverter.convert()`
+  - [x] 총 주문 금액이 10,000원 미만인 경우 적용되는 혜택이 없다. - `BenefitsGenerator.avaliable()`
 - [x] 주문, 혜택 도메인을 통해 예약 내역 도메인을 생성한다. - `PromotionService.createReservation()`
 - [x] 총 혜택 금액을 통해 배지 도메인 생성한다. - `BadgeGenerator.generate()`
 - [x] 배지, 예약 내역을 통해 사용자 도메인을 생성한다. - `PromotionService.createUser()`
