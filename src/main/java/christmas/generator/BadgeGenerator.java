@@ -2,28 +2,24 @@ package christmas.generator;
 
 import christmas.domain.badge.Badge;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class BadgeGenerator implements Generator<Long, Badge> {
     @Override
     public Badge generate(final Long totalBenefitAmount) {
         final List<Badge> badges = createBadges();
-        final ListIterator<Badge> badgeIterator = badges.listIterator();
-        while (badgeIterator.hasNext()) {
-            final Badge badge = badgeIterator.next();
-            if (badge.getMinPrice() >= totalBenefitAmount) {
-                return badges.get(badgeIterator.previousIndex());
+        for (Badge badge : badges) {
+            if (badge.getMinPrice() <= totalBenefitAmount) {
+                return badge;
             }
         }
 
-        return badgeIterator.previous();
+        return badges.get(badges.size() - 1);
     }
 
     private List<Badge> createBadges() {
         return Arrays.stream(Badge.values())
-                .sorted(Comparator.comparingLong(Badge::getMinPrice))
+                .sorted((a, b) -> Long.compare(b.getMinPrice(), a.getMinPrice()))
                 .toList();
     }
 }
