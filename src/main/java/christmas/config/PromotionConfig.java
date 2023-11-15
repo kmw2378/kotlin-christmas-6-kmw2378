@@ -12,7 +12,6 @@ public final class PromotionConfig {
     public static final int MIN_ORDER_QUANTITY = 1;
     public static final int MAX_ORDER_QUANTITY = 20;
     public static final int MENU_GIFT_QUANTITY = 1;
-    public static final int MIN_MENU_GIFT_QUANTITY = 1;
     public static final long MIN_AVAILABLE_MENU_GIFT_AMOUNT = 120_000L;
     public static final long MIN_AVAILABLE_BENEFIT_AMOUNT = 10_000L;
     public static final long WEEKDAY_PER_SALE_AMOUNT = 2_023L;

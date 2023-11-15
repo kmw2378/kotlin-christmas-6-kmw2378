@@ -4,7 +4,6 @@ import christmas.domain.benefit.Benefit;
 import christmas.domain.benefit.Benefits;
 import christmas.domain.benefit.gift.Gift;
 import christmas.domain.benefit.gift.MenuGift;
-import christmas.domain.benefit.gift.GiftQuantity;
 import christmas.domain.benefit.sale.DDaySale;
 import christmas.domain.benefit.sale.Sale;
 import christmas.domain.benefit.sale.SpecialSale;
@@ -71,7 +70,7 @@ public class BenefitsGenerator implements Generator<ReservationRequest, Benefits
 
     private static List<Gift> initGifts() {
         final List<Gift> gifts = new ArrayList<>();
-        gifts.add(new MenuGift(CHAMPAGNE, new GiftQuantity(MENU_GIFT_QUANTITY)));
+        gifts.add(new MenuGift(CHAMPAGNE, MENU_GIFT_QUANTITY));
         return gifts;
     }
 }

@@ -6,11 +6,12 @@ import static christmas.domain.benefit.BenefitType.GIFT;
 
 public abstract class Gift extends Benefit {
     private final String productName;
-    private final GiftQuantity quantity;
+    private final int quantity;
+    private final GiftType type;
 
     protected Gift(final String productName,
-                   final GiftQuantity quantity) {
-        super(GIFT);
+                   final int quantity,
+                   final GiftType type) {
         this.productName = productName;
         this.quantity = quantity;
     }
@@ -21,7 +22,7 @@ public abstract class Gift extends Benefit {
         return productName;
     }
 
-    protected GiftQuantity getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 }

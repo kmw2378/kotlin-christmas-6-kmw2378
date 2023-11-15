@@ -8,8 +8,9 @@ import static christmas.config.PromotionConfig.MIN_AVAILABLE_MENU_GIFT_AMOUNT;
 
 public class MenuGift extends Gift {
     private final Menu menu;
-    public MenuGift(final Menu menu, final GiftQuantity quantity) {
-        super(menu.name(), quantity);
+
+    public MenuGift(final Menu menu, final int quantity) {
+        super(menu.getName(), quantity, MENU);
         this.menu = menu;
     }
 
@@ -19,7 +20,7 @@ public class MenuGift extends Gift {
     }
 
     @Override
-    public long getAmount(final Orders orders, final VisitDate visitDate) {
-        return getQuantity().calculateTotalAmount(menu.getAmount());
+    public long getAmount() {
+        return menu.getAmount() * getQuantity();
     }
 }
