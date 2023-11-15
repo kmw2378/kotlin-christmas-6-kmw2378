@@ -34,7 +34,7 @@ public class BenefitsGenerator implements Generator<ReservationRequest, Benefits
     }
 
     private boolean available(final ReservationRequest reservationRequest) {
-        return reservationRequest.totalOrderAmount() > MIN_AVAILABLE_BENEFIT_AMOUNT;
+        return reservationRequest.totalOrderAmount() >= MIN_AVAILABLE_BENEFIT_AMOUNT;
     }
 
     private List<Gift> createGifts(final ReservationRequest reservationRequest) {
