@@ -1,7 +1,8 @@
 package christmas.mapper;
 
-import christmas.domain.benefit.BenefitType;
-import christmas.domain.user.User;
+import christmas.domain.benefit.gift.GiftType;
+import christmas.domain.benefit.sale.SaleType;
+import christmas.domain.reservation.Reservation;
 import christmas.dto.benefit.response.AmountResponse;
 import christmas.dto.benefit.response.BenefitRecordResponse;
 import christmas.dto.benefit.response.BenefitResponse;
@@ -9,8 +10,6 @@ import christmas.dto.benefit.response.GiftResponse;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import static christmas.domain.benefit.BenefitType.GIFT;
 
 public class BenefitResponseMapper implements ResponseMapper<User, BenefitResponse> {
     @Override

@@ -6,7 +6,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import static christmas.config.PromotionConfig.WEEKEND_PER_SALE_AMOUNT;
-import static christmas.domain.benefit.BenefitType.WEEKEND;
+import static christmas.domain.benefit.sale.SaleType.WEEKEND;
 import static christmas.domain.menu.MenuType.MAIN;
 import static java.util.Calendar.FRIDAY;
 import static java.util.Calendar.SATURDAY;

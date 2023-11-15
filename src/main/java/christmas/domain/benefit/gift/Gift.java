@@ -1,10 +1,6 @@
 package christmas.domain.benefit.gift;
 
-import christmas.domain.benefit.Benefit;
-
-import static christmas.domain.benefit.BenefitType.GIFT;
-
-public abstract class Gift extends Benefit {
+public abstract class Gift {
     private final String productName;
     private final int quantity;
     private final GiftType type;
@@ -14,6 +10,7 @@ public abstract class Gift extends Benefit {
                    final GiftType type) {
         this.productName = productName;
         this.quantity = quantity;
+        this.type = type;
     }
 
     public abstract boolean support(final long totalOrderAmount);

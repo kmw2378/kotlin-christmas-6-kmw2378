@@ -5,6 +5,7 @@ import christmas.domain.order.Orders;
 import christmas.domain.reservation.VisitDate;
 
 import static christmas.config.PromotionConfig.MIN_AVAILABLE_MENU_GIFT_AMOUNT;
+import static christmas.domain.benefit.gift.GiftType.MENU;
 
 public class MenuGift extends Gift {
     private final Menu menu;

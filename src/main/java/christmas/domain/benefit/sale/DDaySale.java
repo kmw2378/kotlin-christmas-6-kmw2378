@@ -8,7 +8,7 @@ import static christmas.config.PromotionConfig.D_DAY_SALE_AMOUNT_INCREMENT;
 import static christmas.config.PromotionConfig.D_DAY_SALE_END_DAY;
 import static christmas.config.PromotionConfig.D_DAY_SALE_START_AMOUNT;
 import static christmas.config.PromotionConfig.D_DAY_SALE_START_DAY;
-import static christmas.domain.benefit.BenefitType.D_DAY;
+import static christmas.domain.benefit.sale.SaleType.D_DAY;
 
 public class DDaySale extends Sale {
     public DDaySale() {

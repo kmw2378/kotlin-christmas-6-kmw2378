@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import static christmas.config.PromotionConfig.SPECIAL_DATES;
 import static christmas.config.PromotionConfig.SPECIAL_SALE_AMOUNT;
-import static christmas.domain.benefit.BenefitType.SPECIAL;
+import static christmas.domain.benefit.sale.SaleType.SPECIAL;
 
 public class SpecialSale extends Sale {
     public SpecialSale() {

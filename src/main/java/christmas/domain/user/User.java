@@ -1,7 +1,6 @@
 package christmas.domain.user;
 
 import christmas.domain.badge.Badge;
-import christmas.domain.benefit.BenefitType;
 import christmas.domain.menu.Menu;
 import christmas.domain.reservation.Reservation;
 
