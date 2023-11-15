@@ -13,8 +13,8 @@ public class BadgeGenerator implements Generator<Long, Badge> {
         final ListIterator<Badge> badgeIterator = badges.listIterator();
         while (badgeIterator.hasNext()) {
             final Badge badge = badgeIterator.next();
-            if (badge.getMinPrice() > totalBenefitAmount) {
-                return badgeIterator.previous();
+            if (badge.getMinPrice() >= totalBenefitAmount) {
+                return badges.get(badgeIterator.previousIndex());
             }
         }
 
