@@ -22,6 +22,7 @@ public final class PromotionConfig {
     public static final long D_DAY_SALE_START_AMOUNT = 1_000L;
     public static final long D_DAY_SALE_AMOUNT_INCREMENT = 100L;
     public static final List<LocalDate> SPECIAL_DATES = createSpecialDates();
+    public static final List<LocalDate> WEEKEND_DATES = createWeekendDates();
 
     private PromotionConfig() {}
 
@@ -33,5 +34,15 @@ public final class PromotionConfig {
 
         specialDates.add(LocalDate.of(PROMOTION_YEAR, PROMOTION_MONTH, 25));
         return specialDates;
+    }
+
+    private static List<LocalDate> createWeekendDates() {
+        final List<LocalDate> weekendDates = new ArrayList<>();
+        for (int i = 1; i <= PROMOTION_END_DAY; i += 7) {
+            weekendDates.add(LocalDate.of(PROMOTION_YEAR, PROMOTION_MONTH, i));
+            weekendDates.add(LocalDate.of(PROMOTION_YEAR, PROMOTION_MONTH, i + 1));
+        }
+
+        return weekendDates;
     }
 }

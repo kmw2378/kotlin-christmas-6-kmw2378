@@ -2,14 +2,12 @@ package christmas.domain.benefit.sale;
 
 import christmas.domain.order.Orders;
 import christmas.domain.reservation.VisitDate;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 
+import static christmas.config.PromotionConfig.WEEKEND_DATES;
 import static christmas.config.PromotionConfig.WEEKEND_PER_SALE_AMOUNT;
 import static christmas.domain.benefit.sale.SaleType.WEEKEND;
 import static christmas.domain.menu.MenuType.MAIN;
-import static java.util.Calendar.FRIDAY;
-import static java.util.Calendar.SATURDAY;
 
 public class WeekendSale extends Sale {
     public WeekendSale() {
@@ -18,9 +16,7 @@ public class WeekendSale extends Sale {
 
     @Override
     public boolean support(final LocalDate visitDate) {
-        final DayOfWeek convertedWeek = localDateToWeekConverter.convert(visitDate);
-        final int weekValue = convertedWeek.getValue();
-        return FRIDAY <= weekValue && weekValue <= SATURDAY;
+        return WEEKEND_DATES.contains(visitDate);
     }
 
     @Override
