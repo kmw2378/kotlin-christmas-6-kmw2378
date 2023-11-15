@@ -29,9 +29,15 @@ public class PromotionService {
         return generatorService.generateVisitDate(visitDateRequest);
     }
 
-    public User createUser(final List<OrderRequest> orderRequests,
-                           final VisitDate visitDate) {
-        final Reservation reservation = createReservation(orderRequests, visitDate);
+    public Reservation createReservation(final List<OrderRequest> orderRequests,
+                                         final VisitDate visitDate) {
+        final Orders orders = generatorService.generateOrders(orderRequests);
+        final ReservationRequest reservationRequest = new ReservationRequest(visitDate.getDate(), orders.getTotalAmount());
+        final Benefits benefits = generatorService.generateBenefits(reservationRequest);
+        return new Reservation(benefits, orders, visitDate);
+    }
+
+    public User createUser(final Reservation reservation) {
         final Badge badge = generatorService.generateBadge(reservation.getTotalBenefitAmount());
         return new User(badge, reservation);
     }
@@ -40,23 +46,15 @@ public class PromotionService {
         return mapperService.mapBadgeResponse(user);
     }
 
-    public BenefitResponse createBenefitResponse(final User user) {
-        return mapperService.mapBenefitResponse(user);
+    public BenefitResponse createBenefitResponse(final Reservation reservation) {
+        return mapperService.mapBenefitResponse(reservation);
     }
 
-    public OrderResponse createOrderResponse(final User user) {
-        return mapperService.mapOrderResponse(user);
+    public OrderResponse createOrderResponse(final Reservation reservation) {
+        return mapperService.mapOrderResponse(reservation);
     }
 
     public VisitDateResponse createVisitDateResponse(final VisitDate visitDate) {
         return mapperService.mapVisitDateResponse(visitDate);
-    }
-
-    private Reservation createReservation(final List<OrderRequest> orderRequests,
-                                          final VisitDate visitDate) {
-        final Orders orders = generatorService.generateOrders(orderRequests);
-        final ReservationRequest reservationRequest = new ReservationRequest(visitDate.getDate(), orders.getTotalAmount());
-        final Benefits benefits = generatorService.generateBenefits(reservationRequest);
-        return new Reservation(benefits, orders, visitDate);
     }
 }

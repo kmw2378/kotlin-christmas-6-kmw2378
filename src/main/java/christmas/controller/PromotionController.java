@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.reservation.Reservation;
 import christmas.domain.reservation.VisitDate;
 import christmas.domain.user.User;
 import christmas.dto.badge.response.BadgeResponse;
@@ -30,9 +31,11 @@ public class PromotionController {
     public void start() {
         outputView.printPromotionStartMessage();
         final VisitDate visitDate = getVisitDate();
-        final User user = getUser(visitDate);
+        final Reservation reservation = getReservation(visitDate);
+        final User user = getUser(reservation);
+
         final VisitDateResponse visitDateResponse = promotionService.createVisitDateResponse(visitDate);
-        printResult(user, visitDateResponse);
+        printResult(reservation, user, visitDateResponse);
     }
 
     private VisitDate getVisitDate() {
@@ -45,30 +48,36 @@ public class PromotionController {
         }
     }
 
-    private User getUser(final VisitDate visitDate) {
+    private Reservation getReservation(final VisitDate visitDate) {
         try {
             final List<OrderRequest> orderRequests = inputView.requestOrders();
-            return promotionService.createUser(orderRequests, visitDate);
+            return promotionService.createReservation(orderRequests, visitDate);
         } catch (InputException e) {
             outputView.printErrorMessage(e);
-            return getUser(visitDate);
+            return getReservation(visitDate);
         }
     }
 
-    private void printResult(final User user, final VisitDateResponse visitDateResponse) {
+    private User getUser(final Reservation reservation) {
+        return promotionService.createUser(reservation);
+    }
+
+    private void printResult(final Reservation reservation,
+                             final User user,
+                             final VisitDateResponse visitDateResponse) {
         outputView.printPromotionResultMessage(visitDateResponse);
-        printOrder(user);
-        printBenefit(user);
+        printOrder(reservation);
+        printBenefit(reservation);
         printBadge(user);
     }
 
-    private void printOrder(final User user) {
-        final OrderResponse orderResponse = promotionService.createOrderResponse(user);
+    private void printOrder(final Reservation reservation) {
+        final OrderResponse orderResponse = promotionService.createOrderResponse(reservation);
         outputView.printOrderMessage(orderResponse);
     }
 
-    private void printBenefit(final User user) {
-        final BenefitResponse benefitResponse = promotionService.createBenefitResponse(user);
+    private void printBenefit(final Reservation reservation) {
+        final BenefitResponse benefitResponse = promotionService.createBenefitResponse(reservation);
         outputView.printBenefitMessage(benefitResponse);
     }
 

@@ -8,52 +8,34 @@ import christmas.dto.benefit.response.BenefitRecordResponse;
 import christmas.dto.benefit.response.BenefitResponse;
 import christmas.dto.benefit.response.GiftResponse;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class BenefitResponseMapper implements ResponseMapper<User, BenefitResponse> {
+public class BenefitResponseMapper implements ResponseMapper<Reservation, BenefitResponse> {
     @Override
-    public BenefitResponse map(final User user) {
-        final List<GiftResponse> giftResponses = getGiftResponses(user);
-        final List<BenefitRecordResponse> benefitRecordResponses = getBenefitRecordResponses(user);
-        final AmountResponse amountResponse = getAmountResponse(user, benefitRecordResponses);
+    public BenefitResponse map(final Reservation reservation) {
+        final List<GiftResponse> giftResponses = getGiftResponses(reservation);
+        final List<BenefitRecordResponse> benefitRecordResponses = getBenefitRecordResponses(reservation);
+        final AmountResponse amountResponse = getAmountResponse(reservation);
         return new BenefitResponse(giftResponses, benefitRecordResponses, amountResponse);
     }
 
-    private List<GiftResponse> getGiftResponses(final User user) {
-        if (!user.existBenefitType(GIFT)) {
-            return Collections.emptyList();
-        }
-
-        return List.of(new GiftResponse("샴페인", 1));
-    }
-
-    private List<BenefitRecordResponse> getBenefitRecordResponses(final User user) {
-        return Arrays.stream(BenefitType.values())
-                .filter(b -> user.getTotalBenefitAmountFromType(b) > 0)
-                .map(b -> new BenefitRecordResponse(b.getName(), user.getTotalBenefitAmountFromType(b)))
+    private List<GiftResponse> getGiftResponses(final Reservation reservation) {
+        return Arrays.stream(GiftType.values())
+                .filter(reservation::existGiftType)
+                .map(g -> new GiftResponse(reservation.getGiftNameFromType(g), reservation.getGiftQuantityFromType(g)))
                 .toList();
     }
 
-    private AmountResponse getAmountResponse(final User user,
-                                             final List<BenefitRecordResponse> benefitRecordResponses) {
-        final long totalBenefitAmount = getTotalBenefitAmount(benefitRecordResponses);
-        final long totalPaymentAmount = getTotalPaymentAmount(user);
+    private List<BenefitRecordResponse> getBenefitRecordResponses(final Reservation reservation) {
+        return Arrays.stream(SaleType.values())
+                .filter(s -> reservation.getTotalBenefitAmountFromType(s) > 0)
+                .map(s -> new BenefitRecordResponse(s.getName(), reservation.getTotalBenefitAmountFromType(s)))
+                .toList();
+    }
+
+    private AmountResponse getAmountResponse(final Reservation reservation) {
+        final long totalBenefitAmount = reservation.getTotalBenefitAmount();
+        final long totalPaymentAmount = reservation.getTotalOrderAmount() - reservation.getTotalBenefitAmount() + reservation.getGiftAmount();
         return new AmountResponse(totalBenefitAmount, totalPaymentAmount);
-    }
-
-    private long getTotalBenefitAmount(final List<BenefitRecordResponse> benefitRecordResponses) {
-        return benefitRecordResponses.stream()
-                .map(BenefitRecordResponse::totalAmount)
-                .mapToLong(l -> l)
-                .sum();
-    }
-
-    private long getTotalPaymentAmount(final User user) {
-        return Arrays.stream(BenefitType.values())
-                .filter(BenefitType::isReflectedBenefitAmount)
-                .map(user::getTotalBenefitAmountFromType)
-                .mapToLong(l -> l)
-                .sum();
     }
 }
