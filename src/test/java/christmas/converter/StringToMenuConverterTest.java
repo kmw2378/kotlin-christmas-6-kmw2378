@@ -12,7 +12,7 @@ class StringToMenuConverterTest {
     @Test
     public void createMenuFromString() throws Exception {
         // given
-        final String name = CAESAR_SALAD.name();
+        final String name = CAESAR_SALAD.getName();
         final Converter<String, Menu> converter = new StringToMenuConverter();
         final Menu expect = CAESAR_SALAD;
 
