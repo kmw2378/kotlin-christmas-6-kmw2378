@@ -28,7 +28,7 @@ class OrderResponseMapperTest {
         assertThat(actual).usingRecursiveComparison().isEqualTo(expect);
     }
 
-    private static OrderResponse getOrderResponse() {
+    private OrderResponse getOrderResponse() {
         return new OrderResponse(List.of(new MenuResponse(ICE_CREAM.getName(), 1), new MenuResponse(ZERO_COKE.getName(), 1)),
                 ICE_CREAM.getAmount() + ZERO_COKE.getAmount());
     }
