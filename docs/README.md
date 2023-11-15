@@ -10,7 +10,6 @@
 - [x] 변환한 값을 통해 도메인을 생성한다. - `VisitDateGenerator.generate()`
 - [x] 주문 메뉴와 개수를 입력받는다. - `InputView.requestOrders()`
   - [x] 메뉴 이름, 수량 구분자(`-`)가 포함되지 않는 경우 예외 발생 - `ConsoleInputView.validateOrderContainSeparator()`
-  - [x] 쉼표(`,`)로 구분된 값이 2개가 아닌 경우 예외 발생 - `ConsoleInputView.validateSeparatedOrderSize()`
   - [x] 수량이 숫자가 아닌 경우 예외 발생 - `ConsoleInputView.validateMenuQuantityNumeric()`
 - [x] 입력받은 메뉴명을 열거체로 변환한다. - `StringToMenuConverter.convert()`
   - [x] 메뉴판에 없는 메뉴명 입력 시 예외 발생 - `MenuValidator.validate()`
@@ -20,7 +19,6 @@
   - [x] 메뉴명 중복시 예외 발생 - `OrdersValidator.validateDuplicate()`
   - [x] 음료만 입력시 예외 발생 - `OrdersValidator.validateMenuType()`
 - [x] 주문 도메인에 적용되는 혜택 도메인을 생성한다. - `BenefitsGenerator.generate()`
-  - [x] 특정 혜택들의 적용 여부를 확인하기 위해 방문 날짜의 요일을 얻는다. - `LocalDateToWeekConverter.convert()`
   - [x] 총 주문 금액이 10,000원 미만인 경우 적용되는 혜택이 없다. - `BenefitsGenerator.avaliable()`
 - [x] 주문, 혜택 도메인을 통해 예약 내역 도메인을 생성한다. - `PromotionService.createReservation()`
 - [x] 총 혜택 금액을 통해 배지 도메인 생성한다. - `BadgeGenerator.generate()`
@@ -120,7 +118,7 @@
   <img src="picture/converter_diagram.png" height="70%" width="70%">
 </p>
 
-입력값을 특정 객체로 컨버팅시 사용되는 클래스들이다. 방문 날짜에 대한 요일, 메뉴명을 컨버팅한다. 컨버팅된 값들은 도메인 객체를 생성할 때 사용된다.
+입력값을 특정 객체로 컨버팅시 사용되는 클래스들이다. 방문 날짜, 메뉴명을 컨버팅한다. 컨버팅된 값들은 도메인 객체를 생성할 때 사용된다.
 
 
 ### Validator
