@@ -14,6 +14,11 @@ public abstract class Gift {
     }
 
     public abstract boolean support(final long totalOrderAmount);
+    public abstract long getAmount();
+
+    public boolean equalsType(final GiftType type) {
+        return this.type.equals(type);
+    }
 
     public String getProductName() {
         return productName;

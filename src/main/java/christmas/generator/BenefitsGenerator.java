@@ -1,6 +1,5 @@
 package christmas.generator;
 
-import christmas.domain.benefit.Benefit;
 import christmas.domain.benefit.Benefits;
 import christmas.domain.benefit.gift.Gift;
 import christmas.domain.benefit.gift.MenuGift;
@@ -25,37 +24,29 @@ public class BenefitsGenerator implements Generator<ReservationRequest, Benefits
 
     @Override
     public Benefits generate(final ReservationRequest reservationRequest) {
-        final List<Benefit> benefits = createBenefits(reservationRequest);
-        return new Benefits(benefits);
-    }
-
-    private List<Benefit> createBenefits(final ReservationRequest reservationRequest) {
         if (!available(reservationRequest)) {
-            return Collections.emptyList();
+            return new Benefits(Collections.emptyList(), Collections.emptyList());
         }
 
-        final List<Benefit> benefits = new ArrayList<>();
-        benefits.addAll(createSales(reservationRequest));
-        benefits.addAll(createEvents(reservationRequest));
-        return benefits;
+        final List<Gift> gifts = createGifts(reservationRequest);
+        final List<Sale> sales = createSales(reservationRequest);
+        return new Benefits(gifts, sales);
     }
 
     private boolean available(final ReservationRequest reservationRequest) {
         return reservationRequest.totalOrderAmount() > MIN_AVAILABLE_BENEFIT_AMOUNT;
     }
 
-    private List<Benefit> createSales(final ReservationRequest reservationRequest) {
-        final LocalDate visitDate = reservationRequest.visitDate();
-        return SALES.stream()
-                .filter(s -> s.support(visitDate))
-                .map(s -> (Benefit) s)
+    private List<Gift> createGifts(final ReservationRequest reservationRequest) {
+        return GIFTS.stream()
+                .filter(e -> e.support(reservationRequest.totalOrderAmount()))
                 .toList();
     }
 
-    private List<Benefit> createEvents(final ReservationRequest reservationRequest) {
-        return GIFTS.stream()
-                .filter(e -> e.support(reservationRequest.totalOrderAmount()))
-                .map(s -> (Benefit) s)
+    private List<Sale> createSales(final ReservationRequest reservationRequest) {
+        final LocalDate visitDate = reservationRequest.visitDate();
+        return SALES.stream()
+                .filter(s -> s.support(visitDate))
                 .toList();
     }
 
