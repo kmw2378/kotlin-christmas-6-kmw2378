@@ -25,11 +25,11 @@
 - [x] 주문, 혜택 도메인을 통해 예약 내역 도메인을 생성한다. - `PromotionService.createReservation()`
 - [x] 총 혜택 금액을 통해 배지 도메인 생성한다. - `BadgeGenerator.generate()`
 - [x] 배지, 예약 내역을 통해 사용자 도메인을 생성한다. - `PromotionService.createUser()`
-- [x] 사용자 도메인을 통해 프로모션 적용 내역을 출력하기 위한 객체를 생성한다. 
+- [x] 예약 내역 도메인을 통해 아래 내역을 출력하기 위한 객체를 생성한다.
   - [x] 주문 내역 - `OrderResponseMapper.map()`
   - [x] 혜택 내역 - `BenefitResponseMapper.map()`
   - [x] 방문 날짜 - `VisitDateResponseMapper.map()`
-  - [x] 배지 내역 - `BadgeResponseMapper.map()`
+- [x] 사용자 도메인을 통해 배지 내역을 출력하기 위한 객체를 생성한다. - `BadgeResponseMapper.map()`
 - [x] 생성한 객체를 View에서 출력한다.
   - [x] 총 주문 현황 - `OutputView.printOrderMessage()`
   - [x] 적용 혜택 - `OutputView.printBenefitMessage()`
@@ -109,10 +109,10 @@
   <img src="picture/benefit_diagram.png" height="70%" width="70%">
 </p>
 
-혜택에 공통적으로 필요한 행위 및 상태를 `Benefit` 추상 클래스에 선언했다. 이를 크게 증정 이벤트, 할인 두 가지의 추상 클래스를 두고 각각 구현했다. 
+혜택을 크게 증정 이벤트, 할인 두 가지의 추상 클래스를 두고 각각 구현했다. 
 증정 혜택의 경우 상품명, 수량을 필드를 추가하여 확장에 대비했다. 구현체는 혜택 적용 여부 및 가격 메서드를 구현하여 일급 컬렉션으로 관리된다.
 
-추후, 다른 혜택이 추가되는 경우 이 추상 클래스 형태에 알맞게 구현체를 작성하면 된다.
+추후, 다른 혜택이 추가되는 경우 종류에 따라 추상 클래스 형태에 알맞게 구현체를 작성하면 된다.
 
 
 ### Converter
